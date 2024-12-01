@@ -1,8 +1,10 @@
-﻿open Microsoft.FSharp.Collections
-open Helpers // mapBoth
+﻿open System
+open type StringSplitOptions
+open Microsoft.FSharp.Collections
+open Helpers // getInputAsLines, mapBoth
 
 let Part1 input =
-  let s0, s1 = mapBoth Seq.sort input  
+  let s0, s1 = mapBoth Seq.sort input
   (0, s0, s1) |||> Seq.fold2 (fun acc e0 e1 ->
     acc + abs (e0 - e1)
   )
@@ -16,9 +18,9 @@ let Part2 input =
 
 [<EntryPoint>]
 let Day01 _ =
-  let lines = System.IO.File.ReadLines("input/input.txt") in
+  let lines = getInputAsLines("test.txt")
   let pairs = lines |> Seq.map (fun line ->
-    let pair = line.Split ([| ' ' |], System.StringSplitOptions.RemoveEmptyEntries) in
+    let pair = line.Split ([| ' ' |], RemoveEmptyEntries) in
     (pair[0], pair[1])
   ) in
   // Make list of pairs into a pair of lists
