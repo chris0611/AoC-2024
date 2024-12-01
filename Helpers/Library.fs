@@ -6,11 +6,12 @@ open type StringSplitOptions
 
 let mapBoth f (a, b) =
   (f a, f b)
-  
-let getInputAsString (inputFile: string): string =
+
+let private getPath inputFile =
   Path.Combine(Directory.GetCurrentDirectory(), $"input/{inputFile}")
-  |> File.ReadAllText
+
+let getInputAsString (inputFile: string): string =
+  inputFile |> getPath |> File.ReadAllText
   
-let getInputAsLines (inputFile: string): seq<string> =
-  getInputAsString(inputFile).Split([| '\n' |], RemoveEmptyEntries)
-  |> seq<string>
+let getInputAsLines (inputFile: string): array<string> =
+  inputFile |> getPath |> File.ReadAllLines
